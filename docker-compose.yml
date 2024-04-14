@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+    reverse-proxy:
+        # The official v2 Traefik docker image
+        image: traefik:v2.11
+        # Enables the web UI and tells Traefik to listen to docker
+        command: --api.insecure=true --providers.docker
+        ports:
+            # The HTTP port
+            - '80:80'
+            # The Web UI (enabled by --api.insecure=true)
+            - '1106:8080'
+        volumes:
+            # So that Traefik can listen to the Docker events
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    sw650:
+        image: dockware/play:6.5.0.1
+        labels:
+            - 'traefik.http.routers.sw650.rule=Host(`sw650.docker.localhost`)'
+            - 'traefik.http.services.sw650.loadbalancer.server.port=80'
+
+    sw651:
+        image: dockware/play:6.5.1.1
+        labels:
+            - 'traefik.http.routers.sw651.rule=Host(`sw651.docker.localhost`)'
+            - 'traefik.http.services.sw651.loadbalancer.server.port=80'
+
+    sw652:
+        image: dockware/play:6.5.2.1
+        labels:
+            - 'traefik.http.routers.sw652.rule=Host(`sw652.docker.localhost`)'
+            - 'traefik.http.services.sw652.loadbalancer.server.port=80'
+
+    sw653:
+        image: dockware/play:6.5.3.3
+        labels:
+            - 'traefik.http.routers.sw653.rule=Host(`sw653.docker.localhost`)'
+            - 'traefik.http.services.sw653.loadbalancer.server.port=80'
+
+    sw654:
+        image: dockware/play:6.5.4.1
+        labels:
+            - 'traefik.http.routers.sw654.rule=Host(`sw654.docker.localhost`)'
+            - 'traefik.http.services.sw654.loadbalancer.server.port=80'
+
+    sw655:
+        image: dockware/play:6.5.5.2
+        labels:
+            - 'traefik.http.routers.sw655.rule=Host(`sw655.docker.localhost`)'
+            - 'traefik.http.services.sw655.loadbalancer.server.port=80'
+
+    sw656:
+        image: dockware/play:6.5.6.1
+        labels:
+            - 'traefik.http.routers.sw656.rule=Host(`sw656.docker.localhost`)'
+            - 'traefik.http.services.sw656.loadbalancer.server.port=80'
+
+    sw657:
+        image: dockware/play:6.5.7.4
+        labels:
+            - 'traefik.http.routers.sw657.rule=Host(`sw657.docker.localhost`)'
+            - 'traefik.http.services.sw657.loadbalancer.server.port=80'
+
+    sw658:
+        image: dockware/play:6.5.8.8
+        labels:
+            - 'traefik.http.routers.sw658.rule=Host(`sw658.docker.localhost`)'
+            - 'traefik.http.services.sw658.loadbalancer.server.port=80'
+
+    sw660:
+        image: dockware/play:6.6.0.2
+        labels:
+            - 'traefik.http.routers.sw660.rule=Host(`sw660.docker.localhost`)'
+            - 'traefik.http.services.sw660.loadbalancer.server.port=80'
+
+    sw661:
+        image: dockware/play:6.6.1.0
+        labels:
+            - 'traefik.http.routers.sw661.rule=Host(`sw661.docker.localhost`)'
+            - 'traefik.http.services.sw661.loadbalancer.server.port=80'

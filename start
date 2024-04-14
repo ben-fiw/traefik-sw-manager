@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# List of currently supported versions
+supported_versions=(650 651 652 653 654 655 656 657 658 660 661)
+
+# Get the provided version
+version=$1
+
+# Make sure, the version is provided
+if [ -z "$version" ]; then
+    echo "Please provide a version"
+    exit 1
+fi
+
+# Make sure, the provided version is supported
+if [[ ! " ${supported_versions[@]} " =~ " ${version} " ]]; then
+    echo "Version ${version} is not supported"
+    exit 1
+fi
+
+# Make sure, the reverse proxy is running
+docker-compose up reverse-proxy -d
+
+# Start the container for the provided version
+docker-compose up "sw${version}" -d
